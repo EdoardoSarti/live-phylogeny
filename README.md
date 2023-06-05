@@ -6,3 +6,6 @@
 
 ### `steinerMix.py` 
 - uses the `mst_steiner` function from smt.py on a dummy example and visualises using `visualize_steiner_tree`
+
+### `nj.py`
+- `skbio_tree_to_nx_graph` input : skbio tree object, output : networkx graph object
