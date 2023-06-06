@@ -30,6 +30,9 @@ def mst_steiner(graph, terminals):
     
     # Step 2: Find an MST on the metric closure
     mst = nx.minimum_spanning_tree(metric_closure)
+    # print(list(graph.edges(data=True)))
+    # print(list(mst.edges(data=True)))
+    # print(list(metric_closure.edges(data=True)))
     visualize_steiner_tree(mst,metric_closure)
     # Step 3: Initialize the Steiner tree
     steiner_tree = nx.Graph()
@@ -48,7 +51,7 @@ def mst_steiner(graph, terminals):
         all_shortest_path = nx.all_shortest_paths(graph, u, v, weight='distance')
         long_path = shortest_path
         for path in all_shortest_path :
-            if ("emp1" in path) or ("emp2" in path) or ("emp3" in path) :
+            if ("emp1" in path) or ("emp2" in path) or ("emp3" in path) or True :
                 if len(path) > len(long_path) :
                     long_path = path
                 print(path)
@@ -57,7 +60,11 @@ def mst_steiner(graph, terminals):
         # Step 4.2: Add the path to the Steiner tree
         if len(set(shortest_path) & set(steiner_tree.nodes())) < 100:
             # Add the entire path if it has less than two vertices in the Steiner tree
-            steiner_tree.add_edges_from(nx.utils.pairwise(shortest_path))
+            for i in range (0,len(shortest_path)-1) : 
+                path_length = nx.shortest_path_length(graph, shortest_path[i], shortest_path[i+1], weight='distance')
+                # print("DISTANCEEEEEEEEEE", path_length)
+                steiner_tree.add_edge(shortest_path[i],shortest_path[i+1], weight = path_length)
+            # steiner_tree.add_edges_from(nx.utils.pairwise(shortest_path), weight = 'weight')
             # visualize_steiner_tree(steiner_tree,steiner_tree)
 
             print("HERE",steiner_tree)
@@ -71,6 +78,7 @@ def mst_steiner(graph, terminals):
             pi_to_pj_path = shortest_path[shortest_path.index(pi):shortest_path.index(pj)+1]
             steiner_tree.add_edges_from(nx.utils.pairwise(pi_to_pj_path))
             print("THERE",steiner_tree)
+    # print(list(steiner_tree.edges(data=True)))
     
     # Step 5: Return the Steiner tree
     return steiner_tree
