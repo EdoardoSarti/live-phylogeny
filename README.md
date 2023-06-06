@@ -15,5 +15,5 @@
 ### `usage.py`
 - uses the above modules to generate tree from `data` file
 
-### `data`
-- the datafile
+### `datafile`
+- the datafile of sequences and their names
