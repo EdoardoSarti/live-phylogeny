@@ -9,18 +9,18 @@ def skbio_tree_to_nx_graph(tree):
         if node is None:
             return
 
-        print("Node", node.name, node.children)
+        # print("Node", node.name, node.children)
         counter = 0
         for child in node.children:
             if child.name is None:
                 child.name = node.name + '_' + str(counter)
                 counter += 1
             graph.add_node(child.name)
-            graph.add_edge(node.name, child.name, distance=node.distance(child))
+            graph.add_edge(node.name, child.name, distance=round(node.distance(child),4))
             traverse(child)
     tree.root().name = 'r'
     graph.add_node(tree.root().name)
     traverse(tree.root())
-    print("TREE TO GRAPH:", graph)
+    # print("TREE TO GRAPH:", graph)
 
     return graph
