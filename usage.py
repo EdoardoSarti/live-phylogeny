@@ -6,8 +6,6 @@ from nj import *
 from skbio import DistanceMatrix
 from skbio.tree import nj
 
-
-
 def SI(a,b):
     """returns SI value over non-gapped pairs"""
     matches = 0
@@ -32,23 +30,17 @@ for line in in_f:
     seqs.append(seq)
     dates.append(date_s.replace("_", "|"))
     leavesdict[date_s.replace("_","|")] = seq
-    # graph.add_node(dates)
     line_count += 1
-print(leavesdict)
-print()
-print()
-
+# print(leavesdict)
 
 dist_matrix = [[0] * line_count for _ in range(line_count)]
 
-# print(dist_matrix)
 for i in range(line_count):
     for j in range(i+1):
         dist_matrix[i][j] = 1-SI(seqs[i],seqs[j])
         dist_matrix[j][i] = 1-SI(seqs[i],seqs[j])
 
 # Distance matrix made successfully at this point
-print(dist_matrix)
 dm = DistanceMatrix(dist_matrix, dates)
 newick_str = nj(dm, result_constructor=str)
 print(newick_str)
@@ -75,41 +67,5 @@ for i in range (len(nodes)) :
         d = nx.shortest_path_length(networkx_graph, nodes[i], nodes[j], weight='distance')
         networkx_graph.add_edge(nodes[i], nodes[j], distance=d)
 
-        # if nodes[i] in leaves and nodes[j] in leaves :
-        #     d = nx.shortest_path_length(networkx_graph, nodes[i], nodes[j], weight='distance')#1 - SI(leavesdict[nodes[i]], leavesdict[nodes[j]])
-        #     if d < 1 :                                                                  # set to 1 if want to join all the leaves (clique)
-        #         networkx_graph.add_edge(nodes[i], nodes[j], distance=d)
-        # else :
-        #     networkx_graph.add_edge(nodes[i], nodes[j], distance=nx.shortest_path_length(networkx_graph, nodes[i], nodes[j], weight='distance'))
-print(terminals)
-print(len(terminals)) # if this is correct, go ahead
-print(networkx_graph)
-print("Nodes:", networkx_graph.nodes)
-print(len(networkx_graph.nodes))
-print("Edges:", networkx_graph.edges)
-# visualize_steiner_tree(networkx_graph,networkx_graph)
-
 steiner_tree_nj = mst_steiner(networkx_graph, terminals)
-# steiner_tree_normal = mst_steiner(c_graph, dates)
-
-
-# def visualize_steiner_tree(steiner_tree, graph):
-#     pos = nx.spring_layout(graph)  # Layout for node positioning
-#     edge_labels = nx.get_edge_attributes(steiner_tree, 'distance')  # Get edge weights as labels
-    
-#     nx.draw_networkx(graph, pos, with_labels=True, node_color='lightblue', node_size=500, edge_color='gray')
-#     nx.draw_networkx_edges(steiner_tree, pos, edgelist=steiner_tree.edges(), edge_color='red', width=2.0, alpha=0.5)
-#     nx.draw_networkx_edge_labels(steiner_tree, pos, edge_labels=edge_labels)  # Display edge labels
-#     plt.title("Steiner Tree")
-#     plt.show()
-
-print("NX GRAPH:", list(networkx_graph.edges(data=True)))
-print("STEINER TREE:", list(steiner_tree_nj.edges(data=True)))
-
-
 visualize_steiner_tree(steiner_tree_nj, steiner_tree_nj)
-# visualize_steiner_tree(steiner_tree_normal, steiner_tree_normal)
-
-# print("Nodes:", steiner_tree_nj.nodes)
-# print(len(steiner_tree_nj.nodes))
-# print("Edges:", steiner_tree_nj.edges)
