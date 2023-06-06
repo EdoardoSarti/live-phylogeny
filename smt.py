@@ -34,18 +34,13 @@ def mst_steiner(graph, terminals):
     dfs_edges = nx.dfs_edges(mst)
     for edge in dfs_edges:
         u, v = edge
-        # print("Edge :", u, v)
-
         # Step 4.1: Find a shortest path from u to v in the original graph
         shortest_path = nx.shortest_path(graph, u, v, weight='distance')
-        # print("SHORTEST PATH:", shortest_path)
-        # print("TREE NODES:", steiner_tree.nodes())
         all_shortest_path = nx.all_shortest_paths(graph, u, v, weight='distance')
         long_path = shortest_path
         for path in all_shortest_path :
             if len(path) > len(long_path) :
                 long_path = path
-        # print(all_shortest_path)
         shortest_path = long_path
 
         # Step 4.2: Add the path to the Steiner tree
