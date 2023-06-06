@@ -1,6 +1,6 @@
 # live-phylogeny
 ### Libraries to be installed
-`skbio`, `matplotlib`, `numpy`, `networkx`, `ete3`
+- `skbio`, `matplotlib`, `numpy`, `networkx`, `ete3`
 
 ### `smt.py` Cantains two functions 
 - `visualize_steiner_tree` input : spanning tree (networkx graph) and the _backgroud_ graph, output : plot of tree
@@ -11,3 +11,9 @@
 
 ### `nj.py`
 - `skbio_tree_to_nx_graph` input : skbio tree object, output : networkx graph object
+
+### `usage.py`
+- uses the above modules to generate tree from `data` file
+
+### `data`
+- the datafile
