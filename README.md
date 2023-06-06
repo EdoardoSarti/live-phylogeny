@@ -1,4 +1,6 @@
 # live-phylogeny
+### Libraries to be installed
+`skbio`, `matplotlib`, `numpy`, `networkx`, `ete3`
 
 ### `smt.py` Cantains two functions 
 - `visualize_steiner_tree` input : spanning tree (networkx graph) and the _backgroud_ graph, output : plot of tree
