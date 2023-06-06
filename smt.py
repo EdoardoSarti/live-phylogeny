@@ -12,7 +12,6 @@ def visualize_steiner_tree(steiner_tree, graph):
     plt.show()
 
 def mst_steiner(graph, terminals):
-    print("CHECK GRAPH", graph)
     # Step 1: Construct the metric closure on the terminal set
     metric_closure = nx.Graph()
 
