@@ -21,7 +21,6 @@ def mst_steiner(graph, terminals):
             if terminal1 != terminal2:
                 shortest_path = nx.shortest_path(graph, terminal1, terminal2, weight='distance')
                 path_length = nx.shortest_path_length(graph, terminal1, terminal2, weight='distance')
-                print(path_length)
                 metric_closure.add_edge(terminal1, terminal2, weight=path_length)
     
     # Step 2: Find an MST on the metric closure
@@ -34,7 +33,6 @@ def mst_steiner(graph, terminals):
     # Step 4: Traverse the MST edges in a depth-first-search order
     dfs_edges = nx.dfs_edges(mst)
     for edge in dfs_edges:
-        print()
         u, v = edge
         # print("Edge :", u, v)
 
@@ -47,7 +45,6 @@ def mst_steiner(graph, terminals):
         for path in all_shortest_path :
             if len(path) > len(long_path) :
                 long_path = path
-            print(path)
         # print(all_shortest_path)
         shortest_path = long_path
 
