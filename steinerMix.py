@@ -1,11 +1,16 @@
+# Test for Toy model
+
 from treeGen import *
 import networkx as nx
 from smt import *
 import matplotlib.pyplot as plt
+from skbio import DistanceMatrix
+from skbio.tree import nj
+
 
 def visualize_steiner_tree(steiner_tree, graph):
     pos = nx.spring_layout(graph)  # Layout for node positioning
-    edge_labels = nx.get_edge_attributes(steiner_tree, 'weight')  # Get edge weights as labels
+    edge_labels = nx.get_edge_attributes(steiner_tree, 'weight', 'distance ')  # Get edge weights as labels
     
     nx.draw_networkx(graph, pos, with_labels=True, node_color='lightblue', node_size=500, edge_color='gray')
     nx.draw_networkx_edges(steiner_tree, pos, edgelist=steiner_tree.edges(), edge_color='red', width=2.0, alpha=0.5)
@@ -42,6 +47,7 @@ steiner_tree=mst_steiner(G, ["e", "b", "f", "c", "d", "g", "h", "a"])
 visualize_steiner_tree(steiner_tree, G)
 
 
+
 # D1 = {"a" : 0, "b" : 1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
 # G1 = nx.Graph()
 # G1.add_node("a")
@@ -62,8 +68,3 @@ visualize_steiner_tree(steiner_tree, G)
 # print("**************** STEINER_MIX OVER ******************")
 # steiner_tree1=mst_steiner(G1, ["a", "b", "c", "d", "e", "f", "g", "h"])
 # visualize_steiner_tree(steiner_tree1, G1)
-
-
-
-
-
